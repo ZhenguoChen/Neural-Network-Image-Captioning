@@ -5,9 +5,15 @@ import cv2
 import numpy as np
 from os import listdir
 from scipy.io import savemat
+import json
 
 # get image name list
-image_names = [im for im in listdir('./data/Flicker8k_Dataset')]
+# image_names = [im for im in listdir('./data/Flicker8k_Dataset')]
+dataset = json.load(open('./data/flickr8k/dataset.json'))
+image_names = []
+for image in dataset['images']:
+    image_names.append(image['filename'])
+
 print 'number of images', len(image_names)
 
 # create feature extractor
@@ -19,13 +25,16 @@ feats = {'feats': [],
          '__version__': '1.0'}
 
 # extract features from images
-for im_name in image_names[:10]:
+for im_name in image_names:
+    print im_name
     img = cv2.imread('./data/Flicker8k_Dataset/'+im_name)
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
     # find the keypoints and descriptors with SIFT
     kp, des = surf.detectAndCompute(img,None)
+    print len(des.flatten())
     # set descriptor to the same size
+    # flat = des.flatten()[:8000]
     flat = des.flatten()
     flat.resize(8000)
 
