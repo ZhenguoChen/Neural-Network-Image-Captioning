@@ -20,7 +20,7 @@ class DataSet:
         if dir_name == 'data/Flicker8k_KNN':
             images_data = scipy.io.loadmat(dir_name+'/knn_feats.mat')
         else:
-            images_data = scipy.io.loadmat(dir_name+'/vgg_feats.mat')
+            images_data = scipy.io.loadmat(dir_name+'/vgg_feats_converted.mat')
         self.images = images_data['feats']
 
         # split the images into train/validation/test sets
@@ -79,6 +79,7 @@ class DataSet:
         get training examples from the whole dataset
         :return:
         '''
+        print len(self.images)
         trains = {}
         trains['feats'] = []
         trains['descriptions'] = []
