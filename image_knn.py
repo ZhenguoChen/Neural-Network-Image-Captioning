@@ -54,7 +54,7 @@ class KNN:
             plt.show()
 
 if __name__ == '__main__':
-    data = DataSet('data/Flicker8k_KNN')
+    data = DataSet('data/flickr8k')
     trains = data.get_trains()
     knn = KNN(trains)
     valids = data.get_valids()
