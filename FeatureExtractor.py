@@ -17,7 +17,9 @@ for image in dataset['images']:
 print 'number of images', len(image_names)
 
 # create feature extractor
-surf = cv2.xfeatures2d.SURF_create()
+# surf = cv2.xfeatures2d.SURF_create()
+surf = cv2.ORB_create(128)
+
 # create features data
 feats = {'feats': [],
          '__globals__': [],
@@ -32,11 +34,11 @@ for im_name in image_names:
 
     # find the keypoints and descriptors with SIFT
     kp, des = surf.detectAndCompute(img,None)
-    print len(des.flatten())
+    # print len(des.flatten())
     # set descriptor to the same size
     # flat = des.flatten()[:8000]
     flat = des.flatten()
-    flat.resize(8000)
+    flat.resize(4096)
 
     # feats['feats'] = np.append(feats['feats'], flat)
     feats['feats'].append(flat.tolist())
