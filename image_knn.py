@@ -76,7 +76,7 @@ class KNN:
 
 
 if __name__ == '__main__':
-    data = DataSet('data/flickr8k')
+    data = DataSet('data/Flicker8k_KNN')
     trains = data.get_trains()
     knn = KNN(trains)
     valids = data.get_valids()
