@@ -13,8 +13,13 @@
 * run format.py
 * run image_knn.py
 
+## VGG Feature Extractor (CNN)
+* use 16 layer version of CNN to extract features
+* [pre-trained model](https://www.cs.toronto.edu/~frossard/vgg16/vgg16_weights.npz) put pr-trained model file in model folder
+
 ## dependencies:
 * OpenCV: for feature extraction(SIFT, SURF, ORB)
 run install-opencv.sh
 * GIST: A wrapper for Lear's GIST implementation written in C.
 follow the instruction: [here](https://github.com/yuichiroTCY/lear-gist-python)
+* Lasagne: install latest version pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
