@@ -7,7 +7,6 @@ from utils import accuracy
 from sklearn.neighbors import BallTree
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
-from nltk.translate import bleu_score
 
 banner1 = "*" *10
 banner2 = "-" *10
@@ -16,7 +15,6 @@ banner3 = "&" *5
 class KNN:
     '''
     knn model for generating description for images
-    each word in vocabulary has a classifier
     '''
     def __init__(self, trains, k=3):
         '''
@@ -138,8 +136,8 @@ if __name__ == '__main__':
     trains = data.get_trains()
     knn = KNN(trains)
     valids = data.get_valids()
-    predict, actual = knn.eval(valids['feats'][:10], valids['descriptions'][:10])
-    predict = knn.predict(valids['feats'][:10])
-    #knn.accuracy(valids['feats'][:20], valids['descriptions'][:20])
-    acc = accuracy(predict, actual)
-    print acc
+    # predict, actual = knn.eval(valids['feats'][:10], valids['descriptions'][:10])
+    # predict = knn.predict(valids['feats'][:10])
+    knn.accuracy(valids['feats'][:1], valids['descriptions'][:1])
+    # acc = accuracy(predict, actual)
+    # print acc
