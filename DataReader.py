@@ -20,7 +20,7 @@ class DataSet:
         if dir_name == 'data/Flicker8k_KNN':
             images_data = scipy.io.loadmat(dir_name+'/knn_feats.mat')
         else:
-            images_data = scipy.io.loadmat(dir_name+'/vgg_feats_converted.mat')
+            images_data = scipy.io.loadmat(dir_name+'/vgg_feats_tensorflow.mat')
         self.images = images_data['feats']
 
         # split the images into train/validation/test sets
@@ -64,8 +64,10 @@ class DataSet:
         '''
         convert sentences to vector
         combine all sentences for a image to a vector
-        :return:
+        :param sentences: 'sentences' filed in json file
+        :return:vector representing the caption of image
         '''
+
         vec = np.zeros(self.vocab_size)
         for sentence in sentences:
             for token in sentence['tokens']:
