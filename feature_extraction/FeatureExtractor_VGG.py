@@ -3,11 +3,8 @@ extract features using cnn
 '''
 import tensorflow as tf
 import json
-import sys
 import scipy.io
 from scipy.misc import imread, imresize
-
-sys.path.append('../model/')
 from CNN_VGG import vgg16
 
 if __name__ == '__main__':
