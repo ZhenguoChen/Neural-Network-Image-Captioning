@@ -17,6 +17,10 @@
 * use 16 layer version of CNN to extract features
 * [pre-trained model](https://www.cs.toronto.edu/~frossard/vgg16/vgg16_weights.npz) put pr-trained model file in model folder
 
+## Present Results
+* to present results, we use Flask and show the result as web pages.
+* run python app.py, and use 127.0.0.1:4555 to see the results in browser.
+
 ## dependencies:
 * OpenCV: for feature extraction(SIFT, SURF, ORB)
 run install-opencv.sh
