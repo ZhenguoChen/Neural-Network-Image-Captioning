@@ -1,0 +1,208 @@
+(lp1
+(S'image1.jpg'
+S'dog!'
+p2
+tp3
+a(S'image2.jpg'
+g2
+tp4
+a(S'image3.jpg'
+g2
+tp5
+a(S'image4.jpg'
+g2
+tp6
+a(S'image5.jpg'
+g2
+tp7
+a(S'image6.jpg'
+g2
+tp8
+a(S'image7.jpg'
+g2
+tp9
+a(Vdog.jpg
+S'this is the caption'
+tp10
+a(Vdog.jpg
+S'this is the caption'
+tp11
+a(Vdog.jpg
+S'this is the caption'
+tp12
+a(Vdog.jpg
+S'this is the caption'
+tp13
+a(Vdog.jpg
+S'this is the caption'
+tp14
+a(Vdog.jpg
+S'this is the caption'
+tp15
+a(Vdog.jpg
+S'this is the caption'
+tp16
+a(Vdog.jpg
+S'this is the caption'
+tp17
+a(Vdog.jpg
+S'this is the caption'
+tp18
+a(Vdog.jpg
+S'this is the caption'
+tp19
+a(Vdog.jpg
+S'this is the caption'
+tp20
+a(Vdog.jpg
+S'this is the caption'
+tp21
+a(Vdog.jpg
+S'this is the caption'
+tp22
+a(Vdog.jpg
+S'this is the caption'
+tp23
+a(Vdog.jpg
+S'this is the caption'
+tp24
+a(Vdog_PNG2422.png
+S'this is the caption'
+p25
+tp26
+a(Vdog.jpg
+g25
+tp27
+a(Vdog1.jpg
+g25
+tp28
+a(Vdog2.jpg
+g25
+tp29
+a(Vdog3.jpg
+g25
+tp30
+a(Vdog4.jpg
+g25
+tp31
+a(Vdog5.jpg
+g25
+tp32
+a(Vdog_PNG2422.png
+S'this is the caption'
+p33
+tp34
+a(Vdog.jpg
+g33
+tp35
+a(Vdog1.jpg
+g33
+tp36
+a(Vdog2.jpg
+g33
+tp37
+a(Vdog3.jpg
+g33
+tp38
+a(Vdog4.jpg
+g33
+tp39
+a(Vdog5.jpg
+g33
+tp40
+a(Vdog_PNG2422.png
+S'this is the caption'
+p41
+tp42
+a(Vdog.jpg
+g41
+tp43
+a(Vdog1.jpg
+g41
+tp44
+a(Vdog2.jpg
+g41
+tp45
+a(Vdog3.jpg
+g41
+tp46
+a(Vdog4.jpg
+g41
+tp47
+a(Vdog5.jpg
+g41
+tp48
+a(Vdog_PNG2422.png
+S'this is the caption'
+p49
+tp50
+a(Vdog.jpg
+g49
+tp51
+a(Vdog1.jpg
+g49
+tp52
+a(Vdog2.jpg
+g49
+tp53
+a(Vdog3.jpg
+g49
+tp54
+a(Vdog4.jpg
+g49
+tp55
+a(Vdog5.jpg
+g49
+tp56
+a(Vdog_PNG2422.png
+S'this is the caption'
+p57
+tp58
+a(Vdog.jpg
+g57
+tp59
+a(Vdog1.jpg
+g57
+tp60
+a(Vdog2.jpg
+g57
+tp61
+a(Vdog3.jpg
+g57
+tp62
+a(Vdog4.jpg
+g57
+tp63
+a(Vdog5.jpg
+g57
+tp64
+a(Vdog_PNG2422.png
+p65
+S'this is the caption'
+p66
+tp67
+a(Vdog.jpg
+p68
+g66
+tp69
+a(Vdog1.jpg
+p70
+g66
+tp71
+a(Vdog2.jpg
+p72
+g66
+tp73
+a(Vdog3.jpg
+p74
+g66
+tp75
+a(Vdog4.jpg
+p76
+g66
+tp77
+a(Vdog5.jpg
+p78
+g66
+tp79
+a.
