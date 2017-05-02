@@ -11,6 +11,7 @@ from keras.layers.embeddings import Embedding
 from keras.preprocessing import sequence
 from keras.models import Model
 from keras import optimizers
+from keras.optimizers import RMSprop
 from keras.layers.core import Permute
 import keras
 import numpy as np
@@ -90,10 +91,12 @@ class Image_LSTM:
         img_sent_merge_layer = Reshape((1, DIM_HIDDEN+DIM_INPUT+N_WORDS))(img_sent_merge_layer)
 
         lstm = LSTM(DIM_HIDDEN)(img_sent_merge_layer)
-        out = Dense(N_WORDS)(lstm)
+        lstm = Dense(N_WORDS)(lstm)
+        out = Activation('softmax')(lstm)
 
-        self.model = Model(inputs=[img_input, sent_input, mask_input], outputs=out)
+        self.model = Model(input=[img_input, sent_input, mask_input], output=out)
         self.model.compile(loss='categorical_crossentropy',
+                           # optimizer=RMSprop(lr=0.0001, clipnorm=1.))
                            optimizer=optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=00))
         print('finish build model')
         print(self.model.summary())
@@ -110,6 +113,14 @@ class Image_LSTM:
         self.captions = captions
         self.index = (np.arange(len(feats)).astype(int))
         np.random.shuffle(self.index)
+
+    def set_dict(self):
+        '''
+        set the word to index and index to word dictionary
+        :return: 
+        '''
+        self.ixtoword = np.load('data/ixtoword.npy').tolist()
+        self.n_words = len(self.ixtoword)
 
     def train(self, epochs):
         # record the training time
@@ -163,14 +174,39 @@ class Image_LSTM:
     def load_weights(self, weight_path):
         self.model.load_weights(weight_path)
 
-    def predict(self, image):
+    def predict(self, image, caption_len = 15):
         '''
         predict the caption of a image
         :param image: input image features
         :return: caption
         '''
-        pred = self.model.predict(image)
+        mask = np.zeros((caption_len, self.n_words))
+        caption = []
+        for i in range(1, caption_len):
+            if i == 1:
+                cur_word = 2
+            else:
+                # take the prediction as next word
+                cur_word = next_word
+
+            # set mask
+            mask[i,:] = np.logical_or(mask[i,:], mask[i-1,:])
+            mask[i, cur_word] = 1
+
+            pred = self.model.predict([np.array(image), np.array([cur_word]), np.array(mask)])[0]
+            print pred
+            # get the best word
+            next_word = pred.argmax()
+            print next_word
+
+            caption.append(next_word)
         # decode the output to sentences
+        sent = []
+        for cap in caption:
+            sent.append(self.ixtoword[cap])
+
+        print sent
+        return sent
 
 if __name__ == '__main__':
     # set model variables
