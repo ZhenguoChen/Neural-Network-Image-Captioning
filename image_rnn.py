@@ -151,10 +151,10 @@ class Image_LSTM:
                                          np.array(current_mask_matrix)], np.array(next_caption_ind),
                                          batch_size=self.batch_size, epochs=1)
                 # print(result.history['loss'][-1])
-                print('process {}/{}'.format(start, total_feats))
+                print('epoch {0}, process {1}/{2}'.format(epoch, start, total_feats))
 
             # save weights for each epoch
-            epoch_file = 'checkpoint_{0}.h5'.format(epoch)
+            epoch_file = 'model/keras/checkpoint_{0}.h5'.format(epoch)
             self.model.save_weights(epoch_file)
             end = time()
             epoch_time.append('epoch {0} use time: {1}'.format(epoch, end-begin))
