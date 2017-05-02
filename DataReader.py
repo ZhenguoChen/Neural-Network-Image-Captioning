@@ -2,6 +2,7 @@ import json
 import scipy.io
 from collections import defaultdict
 import numpy as np
+import pandas as pd
 
 class DataSet:
     '''
@@ -106,3 +107,14 @@ class DataSet:
             valids['descriptions'].append(valid)
 
         return valids
+
+class Dataset_RNN:
+    '''
+    read data from .npy, including caption and image features for flickr30k
+    '''
+    def __init__(self, data_path):
+        self.captions = pd.read_table(data_path+'/results_20130124.token', sep='\t', header=None, names=['image', 'caption'])
+        self.features = np.load(data_path+'/feats.npy')
+
+    def get_data(self):
+        return self.features, self.captions['caption'].values
