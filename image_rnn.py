@@ -7,6 +7,8 @@ from keras.layers import Reshape
 from keras.layers import concatenate
 from keras.layers import Input
 from keras.layers import Activation
+from keras.layers import Dropout
+from keras.layers import BatchNormalization
 from keras.layers.embeddings import Embedding
 from keras.preprocessing import sequence
 from keras.models import Model
@@ -95,8 +97,10 @@ class Image_LSTM:
         img_sent_merge_layer = concatenate([img_input, sent_embed_layer, mask_input])
         img_sent_merge_layer = Reshape((1, DIM_HIDDEN+DIM_INPUT+N_WORDS))(img_sent_merge_layer)
 
-        lstm = LSTM(DIM_HIDDEN)(img_sent_merge_layer)
+        lstm = LSTM(512)(img_sent_merge_layer)
+        lstm = Dropout(0.25)(lstm)
         lstm = Dense(N_WORDS)(lstm)
+        lstm = BatchNormalization()(lstm)
         out = Activation('softmax')(lstm)
 
         self.model = Model(input=[img_input, sent_input, mask_input], output=out)
@@ -190,7 +194,7 @@ class Image_LSTM:
         caption = []
         for i in range(1, caption_len):
             if i == 1:
-                cur_word = 1
+                cur_word = 0
             else:
                 # take the prediction as next word
                 cur_word = next_word
