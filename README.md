@@ -27,3 +27,4 @@ run install-opencv.sh
 * GIST: A wrapper for Lear's GIST implementation written in C.
 follow the instruction: [here](https://github.com/yuichiroTCY/lear-gist-python)
 * Lasagne: install latest version pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
+* to run image_rnn_predict.py installation of python library pynlpl is needed. use command, pip install pynlpl(or sudo install pynlpl)
