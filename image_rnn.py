@@ -16,6 +16,8 @@ from keras.layers.core import Permute
 import keras
 import numpy as np
 from time import time
+from pynlpl.search import AbstractSearchState, DepthFirstSearch, BreadthFirstSearch, IterativeDeepening, HillClimbingSearch, BeamSearch
+
 
 def preProBuildWordVocab(sentence_iterator, word_count_threshold=30):
     print('preprocessing %d word vocab' % (word_count_threshold, ))
