@@ -23,6 +23,22 @@ def feature_extraction(image_path):
     # print features
     return features
 
+def feature_extraction_batch(image_path):
+    # load vgg16 model
+    model = VGG16(weights='imagenet', include_top=True)
+    featextractor_model = Model(input=model.input, outputs=model.get_layer('fc2').output)
+    # get features of each images
+    features = []
+    for path in image_path:
+        img = image.load_img(path, target_size=(224, 224))
+        x = image.img_to_array(img)
+        x = np.expand_dims(x, axis=0)
+        x = preprocess_input(x)
+
+        feat = featextractor_model.predict(x)
+        features.append(feat)
+    return features
+
 def feature_extraction_VGG19(image_path):
     base_model = VGG19(weights='imagenet')
     model = Model(inputs=base_model.input, outputs=base_model.get_layer('fc2').output)
