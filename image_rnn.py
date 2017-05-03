@@ -30,14 +30,14 @@ def preProBuildWordVocab(sentence_iterator, word_count_threshold=30):
 
     # build map from word to index
     ixtoword = {}
-    ixtoword[0] = '.'
+    # ixtoword[0] = '.'
     # set ixtoword[1] to start tag so that we can set the first word input as start
-    ixtoword[1] = '#START#'
+    ixtoword[0] = '#START#'
     wordtoix = {}
-    wordtoix['.'] = 0
-    wordtoix['#START#'] = 1
+    #wordtoix['.'] = 0
+    wordtoix['#START#'] = 0
 
-    ix = 2
+    ix = 1
     for w in vocab:
       wordtoix[w] = ix
       ixtoword[ix] = w
@@ -72,7 +72,7 @@ class Image_LSTM:
     '''
     A LSTM model, get image features as input, and get caption as output
     '''
-    def __init__(self, DIM_INPUT=4096, DIM_EMBED=256, DIM_HIDDEN=256, BATCH_SIZE=128, N_WORDS=2943):
+    def __init__(self, DIM_INPUT=4096, DIM_EMBED=256, DIM_HIDDEN=256, BATCH_SIZE=128, N_WORDS=2944):
         '''
         initialize the lstm model with word embedding and image embedding
         :param DIM_INPUT: input dimension, 4096
@@ -203,16 +203,13 @@ class Image_LSTM:
             # get the best word
             next_word = pred.argmax()
 
-            caption.append(next_word)
-            if next_word == 0:
+            # decode the output to sentences
+            caption.append(self.ixtoword[next_word])
+            if self.ixtoword[next_word] == '.':
                 break
-        # decode the output to sentences
-        sent = []
-        for cap in caption:
-            sent.append(self.ixtoword[cap])
 
-        print ' '.join(sent)
-        return ' '.join(sent)
+        print ' '.join(caption)
+        return ' '.join(caption_len)
 
 if __name__ == '__main__':
     # set model variables
