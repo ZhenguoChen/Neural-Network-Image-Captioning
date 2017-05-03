@@ -18,6 +18,7 @@ def captioning(images):
         captions.append(caption)
 
     print captions
+    return captions
 
 if __name__ == '__main__':
     img1 = 'static/img/download.jpg'

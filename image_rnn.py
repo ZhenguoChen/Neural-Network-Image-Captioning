@@ -72,7 +72,7 @@ class Image_LSTM:
     '''
     A LSTM model, get image features as input, and get caption as output
     '''
-    def __init__(self, DIM_INPUT=4096, DIM_EMBED=256, DIM_HIDDEN=256, BATCH_SIZE=128, N_WORDS=2944):
+    def __init__(self, DIM_INPUT=4096, DIM_EMBED=256, DIM_HIDDEN=256, BATCH_SIZE=128, N_WORDS=2943):
         '''
         initialize the lstm model with word embedding and image embedding
         :param DIM_INPUT: input dimension, 4096
@@ -209,7 +209,7 @@ class Image_LSTM:
                 break
 
         print ' '.join(caption)
-        return ' '.join(caption_len)
+        return ' '.join(caption)
 
 if __name__ == '__main__':
     # set model variables
