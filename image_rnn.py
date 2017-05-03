@@ -31,15 +31,20 @@ def preProBuildWordVocab(sentence_iterator, word_count_threshold=30):
     # build map from word to index
     ixtoword = {}
     ixtoword[0] = '.'
+    # set ixtoword[1] to start tag so that we can set the first word input as start
+    ixtoword[1] = '#START#'
     wordtoix = {}
-    wordtoix['#START#'] = 0
-    ix = 1
+    wordtoix['.'] = 0
+    wordtoix['#START#'] = 1
+
+    ix = 2
     for w in vocab:
       wordtoix[w] = ix
       ixtoword[ix] = w
       ix += 1
 
     word_counts['.'] = nsents
+    word_counts['#START#'] = nsents
     bias_init_vector = np.array([1.0*word_counts[ixtoword[i]] for i in ixtoword])
     bias_init_vector /= np.sum(bias_init_vector)
     bias_init_vector = np.log(bias_init_vector)
@@ -141,6 +146,7 @@ class Image_LSTM:
                 # get current caption
                 for (cap, feat) in zip(current_captions, current_feat):
                     # get current caption indices
+                    cap = '#START# '+cap
                     indices = [wordtoix[word] for word in cap.lower().split(' ') if word in wordtoix]
                     current_caption_ind.extend(indices[:-1])
                     current_mask = np.zeros((len(indices)-1, n_words))
@@ -184,7 +190,7 @@ class Image_LSTM:
         caption = []
         for i in range(1, caption_len):
             if i == 1:
-                cur_word = 2
+                cur_word = 1
             else:
                 # take the prediction as next word
                 cur_word = next_word
@@ -194,19 +200,19 @@ class Image_LSTM:
             mask[i, cur_word] = 1
 
             pred = self.model.predict([np.array(image), np.array([cur_word]), np.array(mask)])[0]
-            print pred
             # get the best word
             next_word = pred.argmax()
-            print next_word
 
             caption.append(next_word)
+            if next_word == 0:
+                break
         # decode the output to sentences
         sent = []
         for cap in caption:
             sent.append(self.ixtoword[cap])
 
-        print sent
-        return sent
+        print ' '.join(sent)
+        return ' '.join(sent)
 
 if __name__ == '__main__':
     # set model variables
