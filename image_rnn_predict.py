@@ -12,7 +12,7 @@ def captioning(images):
     model.set_dict()
     captions = []
 
-    feats = feature_extraction_batch()
+    feats = feature_extraction_batch(images)
     for feat in feats:
         caption = model.predict(feat)
         captions.append(caption)
