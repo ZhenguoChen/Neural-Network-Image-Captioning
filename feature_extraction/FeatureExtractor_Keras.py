@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
     model = VGG16(weights='imagenet', include_top=True)
 
-    img_path = 'image/dog.jpg'
+    img_path = 'image/image1.jpg'
 
     img = image.load_img(img_path, target_size=(224, 224))
     x = image.img_to_array(img)
