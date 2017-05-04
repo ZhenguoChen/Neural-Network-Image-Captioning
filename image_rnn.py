@@ -64,9 +64,9 @@ what our model looks like:
                     |               |
                     |               |
                     |---------------|
-                        ^    ^    ^
-                        |    |    |
-                      image sent mask
+                      ^    ^    ^  ^
+                      |    |    |  |
+                    image sent mask pos
 '''
 
 
@@ -102,6 +102,7 @@ class Image_LSTM:
         img_sent_merge_layer = Reshape((1, DIM_HIDDEN+DIM_INPUT+N_WORDS))(img_sent_merge_layer)
 
         lstm = LSTM(512)(img_sent_merge_layer)
+        # add dropout and batch normalization layer to prevent overfitting
         lstm = Dropout(0.25)(lstm)
         lstm = Dense(N_WORDS)(lstm)
         lstm = BatchNormalization()(lstm)
@@ -140,11 +141,8 @@ class Image_LSTM:
         epoch_time = []
         total_feats = len(self.feats)
         for epoch in range(epochs):
-            #print('start epoch 1')
             begin = time()
             # train in batch
-            #print range(0, len(self.index), self.batch_size)
-            #print range(self.batch_size, len(self.index), self.batch_size)
             for start, end in zip(range(0, len(self.index), self.batch_size), range(self.batch_size, len(self.index)+1, self.batch_size)):
                 # preprocessing data
                 current_caption_ind = []    # captions in wordtoix form
@@ -157,62 +155,36 @@ class Image_LSTM:
                 # get training batch
                 current_feat = np.array(feats[self.index[start:end]])
                 current_captions = captions[self.index[start:end]]
-                #print('feat',current_feat)
-                #print('cap',current_captions)
+
                 # get current caption
-                # try to overfit
-                #for i in range(10):
                 for (cap, feat) in zip(current_captions, current_feat):
-                    # get current caption indices
+                    # add start tag to caption
                     cap = '#start# '+cap
-                    #print('cap:',cap)
+                    # get current caption indices
                     indices = [wordtoix[word] for word in cap.lower().split(' ') if word in wordtoix]
-                    #print('index:',indices)
                     current_caption_ind.extend(indices[:-1])
                     current_mask = np.zeros((len(indices)-1, n_words))
-                    #print('current_cap_ind:',current_caption_ind)
+
                     # get the next word as a category problem
                     for i in range(1, len(indices)):
                         #print('i',i)
                         next_cap = np.zeros((n_words))
                         next_cap[indices[i]] = 1
+                        # set current position of words in caption
                         cur_position = np.zeros((self.max_len))
                         cur_position[i-1] = 1
 
                         if i < len(indices)-1:
                             current_mask[i,:] = np.logical_or(current_mask[i,:], current_mask[i-1,:])
                             current_mask[i, indices[i-1]] = 1
-
+                        # next word is use as ground truth
                         next_caption_ind.append(next_cap)
                         position.append(cur_position)
                         current_feats.append(feat)
                         current_batch += 1
-                        #print('next cap:', next_cap)
-                        #print('current mask:',current_mask[i-1,:])
-                        #print('current position', cur_position)
 
                     current_mask_matrix.extend(current_mask)
 
-                #print('final current caption:', current_caption_ind)
-                #print('final next caption:', next_caption_ind)
-                #print(current_mask_matrix)
-                '''
-                print('batch size:', current_batch)
-                print('current feat', current_feats[0])
-                print('current caption:',current_caption_ind[0])
-                print('current mask', current_mask_matrix[0])
-                print('current pos', position[0])
-                print('next word', next_caption_ind[0])
-                print('current caption:',current_caption_ind[1])
-                print('current mask', current_mask_matrix[1])
-                print('current pos', position[1])
-                print('next word', next_caption_ind[1])
-
-                print('current caption:', current_caption_ind[-1])
-                print('current mask', current_mask_matrix[-1])
-                print('current pos', position[-1])
-                print('next word', next_caption_ind[-1])
-                '''
                 result = self.model.fit([np.array(current_feats), np.array(current_caption_ind),
                                          np.array(current_mask_matrix), np.array(position)],
                                          np.array(next_caption_ind),
@@ -245,23 +217,17 @@ class Image_LSTM:
                 # take the prediction as next word
                 cur_word = next_word
 
-            #print('current word:', cur_word, self.ixtoword[cur_word])
-
             # set mask
-
             mask[i,:] = np.logical_or(mask[i,:], mask[i-1,:])
-            #mask[i,:] = [x for x in map(lambda x: (x != 0).sum() + 2, mask[i-1,:]]
             mask[i, cur_word] = 1
 
+            # set current word position
             pos = np.zeros(self.max_len)
             pos[i-1] = 1
-            #print('mask:',mask)
-            #print(mask[i-1,:])
-            #print('current pos:', pos)
+
             pred = self.model.predict([np.array(image), np.array([cur_word]), np.array([mask[i-1,:]]), np.array([pos])])[0]
             # get the best word
             next_word = pred.argmax()
-            #print('next word', next_word, self.ixtoword[next_word])
 
             # decode the output to sentences
             caption.append(self.ixtoword[next_word])
@@ -286,17 +252,9 @@ if __name__ == '__main__':
     feats, captions = dataset.get_data()
     feats = feats
     captions = captions
-    '''
-    captions[0] = 'Two young guys with shaggy hair look at their hands while hanging out the yard'
-    captions[1] = 'Two young , White males are outside near many bushes'
-    captions[2] = 'Two men in green shirts are standing in a yard'
-    captions[3] = 'Two man in a blue shirt standing in a garden'
-    captions[4] = 'Two friends enjoy time spent together .'
-    '''
-    # wordtoix, ixtoword, init_b = preProBuildWordVocab(captions)
+
     wordtoix, ixtoword, init_b = preProBuildWordVocab(captions)
-    #print wordtoix
-    #print ixtoword
+
     np.save('data/ixtoword', ixtoword)
 
     n_words = len(wordtoix)
