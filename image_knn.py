@@ -23,7 +23,7 @@ class KNN:
         self.trains = trains
         self.k = k
         self.knn = BallTree(trains['feats'])
-        print 'done training'
+        print('done training')
 
     def predict(self, examples):
         '''
@@ -36,7 +36,7 @@ class KNN:
         consensus_captions = [] #consensus captions
 
         for i, ids in enumerate(ind):
-            print 'predict image ', i
+            print('predict image ', i)
             captions = []  # candidate captions
             for j, id in enumerate(ids):
                 # print 'closed image:', j, 'image id:', id
@@ -73,7 +73,9 @@ class KNN:
                 for sentence in sentences:
                     captions.append(sentence['raw'])
 
+
             print("Predictions: ", consensus(captions))
+
             consensus_captions.append(consensus(captions))
 
             sentences = descriptions[i]["sentences"]
@@ -102,7 +104,7 @@ class KNN:
         consensus_captions = []  # consensus captions
         actual_descriptions = []  # actual descriptions for all examples
 
-        print 'computing accuracy'
+        print('computing accuracy')
 
         for i, ids in enumerate(ind):
             captions = []  # candidate captions
@@ -122,11 +124,11 @@ class KNN:
             actual_descriptions.append(actual_description)
 
             if i%10 == 0:
-                print "{0:.0f}%".format(float(i)/len(examples) * 100)
+                print("{0:.0f}%".format(float(i)/len(examples) * 100))
 
-        print '100%'
+        print('100%')
 
-        print accuracy(consensus_captions, actual_descriptions)
+        print(accuracy(consensus_captions, actual_descriptions))
 
 
 if __name__ == '__main__':

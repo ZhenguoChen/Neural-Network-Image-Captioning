@@ -82,7 +82,7 @@ class DataSet:
         get training examples from the whole dataset
         :return:
         '''
-        print len(self.images)
+        print(len(self.images))
         trains = {}
         trains['feats'] = []
         trains['descriptions'] = []

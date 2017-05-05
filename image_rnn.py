@@ -234,7 +234,7 @@ class Image_LSTM:
             if self.ixtoword[next_word] == '.':
                 break
 
-        print ' '.join(caption)
+        print(' '.join(caption))
         return ' '.join(caption)
 
 if __name__ == '__main__':
@@ -256,6 +256,7 @@ if __name__ == '__main__':
     wordtoix, ixtoword, init_b = preProBuildWordVocab(captions)
 
     np.save('data/ixtoword', ixtoword)
+        
 
     n_words = len(wordtoix)
     maxlen = np.max([x for x in map(lambda x: len(x.split(' ')), captions)])

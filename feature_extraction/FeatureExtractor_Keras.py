@@ -29,7 +29,9 @@ def feature_extraction_batch(image_path):
     featextractor_model = Model(input=model.input, outputs=model.get_layer('fc2').output)
     # get features of each images
     features = []
-    for path in image_path:
+    len_paths = len(image_path)
+    for i, path in enumerate(image_path):
+        print('Extracting Image %d/%d' % (i+1, len_paths))
         img = image.load_img(path, target_size=(224, 224))
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)
@@ -65,6 +67,6 @@ if __name__ == '__main__':
 
     featextractor_model = Model(input=model.input, outputs=model.get_layer('fc2').output)
     features = featextractor_model.predict(x)
-    print features
+    print(features)
     np.save('feat_test.npy', features)
 
