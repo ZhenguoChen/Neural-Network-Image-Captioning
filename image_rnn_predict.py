@@ -2,6 +2,7 @@ from image_rnn import Image_LSTM
 from feature_extraction.FeatureExtractor_Keras import feature_extraction_batch
 from utils import accuracy_rnn
 import json
+import numpy as np
 
 def captioning(images):
     '''
@@ -9,6 +10,9 @@ def captioning(images):
     :param images: image file names
     :return: captions
     '''
+    # extract feature for all images
+    feats = feature_extraction_batch(images)
+    # initialize LSTM model
     model = Image_LSTM()
     model.load_weights('model/keras/checkpoint_19.h5')
     model.set_dict()
@@ -51,5 +55,3 @@ if __name__ == '__main__':
         print("%s = " % (img), images[img][2])
 
     print("Average Accuracy: ", avg_accuracy/len(imgs))
-
-

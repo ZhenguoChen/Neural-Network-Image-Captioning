@@ -63,19 +63,19 @@ class KNN:
             print('{0} predict image {1} filename: {2} {0}'.format(banner1, i, descriptions[i]['filename']))
             captions = []  # candidate captions
             for j, id in enumerate(ids):
-
-                '''
-                print('{0} closed image: {1} image id: {2} {0}'.format(banner2, j, id))
+                print('{0} closest image: {1} image id: {2} {0}'.format(banner2, j, self.trains['descriptions'][id]['filename']))
                 sentences = self.trains['descriptions'][id]['sentences']
                 for sentence in sentences:
                     print sentence['raw']
-                '''
+
                 #get consensus captions
                 sentences = self.trains['descriptions'][id]['sentences']
                 for sentence in sentences:
                     captions.append(sentence['raw'])
 
-            print(consensus(captions))
+
+            print("Predictions: ", consensus(captions))
+
             consensus_captions.append(consensus(captions))
 
             sentences = descriptions[i]["sentences"]
@@ -132,12 +132,12 @@ class KNN:
 
 
 if __name__ == '__main__':
-    data = DataSet('data/Flicker8k_KNN')
+    data = DataSet('data/flickr8k')
     trains = data.get_trains()
     knn = KNN(trains)
     valids = data.get_valids()
-    # predict, actual = knn.eval(valids['feats'][:10], valids['descriptions'][:10])
-    # predict = knn.predict(valids['feats'][:10])
+    predict, actual = knn.eval(valids['feats'][:10], valids['descriptions'][:10])
+    predict = knn.predict(valids['feats'][:10])
     knn.accuracy(valids['feats'][:1], valids['descriptions'][:1])
-    # acc = accuracy(predict, actual)
-    # print acc
+    #acc = accuracy(predict, actual)
+    print acc

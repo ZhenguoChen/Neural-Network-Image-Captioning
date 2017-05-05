@@ -2,16 +2,26 @@
 
 ### Challenges!
 ##### Baseline:
-* KNN model for image captioning
-##### TARGET:
-* CNN and RNN model for image captioning
+* KNN model for image captioning. Get the features of images using SURF or GIST algorithm, and feed into knn model.
+* For prediction, find the closest image based on features.
+* use BLEU score to choose one best caption from the captions of closest images.
+##### Final Model:
+* Use VGG16 or VGG19 CNN to extraction features from images.
+* Use LSTM model to generate the captions
 
 ### Dataset:
 * [Flickr8K](http://nlp.cs.illinois.edu/HockenmaierGroup/Framing_Image_Description/KCCA.html)
+* [Flickr30k](https://drive.google.com/file/d/0B5o40yxdA9PqTnJuWGVkcFlqcG8/view)
+* [captions](https://drive.google.com/file/d/0B2vTU3h54lTydXFjSVM5T2t4WmM/view)
 
 ## run baseline
-* run format.py
 * run image_knn.py
+
+## training LSTM model
+* run image_rnn.py
+
+## LSTM prediction
+* run image_rnn_predict.py
 
 ## VGG Feature Extractor (CNN)
 * use 16 layer version of CNN to extract features
@@ -26,4 +36,6 @@
 run install-opencv.sh
 * GIST: A wrapper for Lear's GIST implementation written in C.
 follow the instruction: [here](https://github.com/yuichiroTCY/lear-gist-python)
-* Lasagne: install latest version pip install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip
+* Tensorflow
+* Keras
+* Flask
