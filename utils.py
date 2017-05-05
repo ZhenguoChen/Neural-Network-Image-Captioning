@@ -37,3 +37,17 @@ def accuracy(predict, real):
         accuracy += score
 
     return accuracy/len(predict)
+
+def accuracy_rnn(predict, real):
+    '''
+    use bleu score as a measurement of accuracy
+    :param predict: a list of predicted captions
+    :param real: a list of actual descriptions
+    :return: bleu accuracy
+    '''
+    accuracy = 0
+    for r in real:
+        score = bleu_score.sentence_bleu(r, predict)
+        accuracy += score
+
+    return accuracy/len(real)
