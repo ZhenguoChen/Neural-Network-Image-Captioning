@@ -12,7 +12,7 @@ def captioning(images):
     feats = feature_extraction_batch(images)
     # initialize LSTM model
     model = Image_LSTM()
-    model.load_weights('model/keras/checkpoint_1.h5')
+    model.load_weights('model/keras/checkpoint_19.h5')
     model.set_dict()
     captions = []
 
@@ -23,10 +23,17 @@ def captioning(images):
     return captions
 
 if __name__ == '__main__':
+    '''
     img1 = 'static/img/image10.jpg'
     img2 = 'static/img/image1.jpg'
     img3 = 'static/img/image11.jpg'
+    '''
+    img1 = 'eval/comp1.jpg'
+    img2 = 'eval/comp2.jpg'
+    img3 = 'eval/comp3.jpg'
+    img4 = 'eval/comp4.jpg'
+    img5 = 'eval/comp5.jpg'
 
-    imgs = [img1, img2, img3]
+    imgs = [img1, img2, img3, img4, img5]
 
     captioning(imgs)
