@@ -30,8 +30,13 @@ def feature_extraction_batch(image_path):
     # get features of each images
     features = []
     len_paths = len(image_path)
+
+    print("Extracting Image Features")
+    print('Extracting Image %d/%d' % (1, len_paths))
+
     for i, path in enumerate(image_path):
-        print('Extracting Image %d/%d' % (i+1, len_paths))
+        if((i+1)%50 == 0):
+            print('Extracting Image %d/%d' % (i+1, len_paths))
         img = image.load_img(path, target_size=(224, 224))
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)

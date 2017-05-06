@@ -234,7 +234,6 @@ class Image_LSTM:
             if self.ixtoword[next_word] == '.':
                 break
 
-        print(' '.join(caption))
         return ' '.join(caption)
 
 if __name__ == '__main__':
