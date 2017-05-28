@@ -1,4 +1,4 @@
-# csci5622 project -- Images Captioning
+# Images Captioning Using Neural Network -- Keras
 
 ### Challenges!
 ##### Baseline:
