@@ -1,5 +1,7 @@
 # Images Captioning Using Neural Network -- Keras
 
+## [YouTube](https://www.youtube.com/watch?v=f2waevH1b6I)
+
 ### Challenges!
 ##### Baseline:
 * KNN model for image captioning. Get the features of images using SURF or GIST algorithm, and feed into knn model.
