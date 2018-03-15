@@ -1,6 +1,6 @@
 # Images Captioning Using Neural Network -- Keras
 
-## [YouTube](https://www.youtube.com/watch?v=f2waevH1b6I)
+## [YouTube](https://www.youtube.com/watch?v=f2waevH1b6I) [Blog](https://zhenguochen.github.io/image-captioning-using-neural-network-cnn-lstm/)
 
 ### Challenges!
 ##### Baseline:
